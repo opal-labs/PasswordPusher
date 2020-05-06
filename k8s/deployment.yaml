@@ -1,0 +1,85 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: passwords-allcareit-com
+  namespace: allcareit
+spec:
+  secretName: passwords-allcareit-com-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: passwords.allcareit.com
+  dnsNames:
+  - passwords.allcareit.com
+  acme:
+    config:
+    - dns01:
+        provider: cf-dns
+      domains:
+      - passwords.allcareit.com
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: passwords-allcareit-website
+  namespace: allcareit
+spec:
+  rules:
+  - host: passwords.allcareit.com
+    http:
+      paths:
+      - backend:
+          serviceName: passwords-allcareit-website
+          servicePort: 80
+  tls:
+    - hosts:
+      - passwords.allcareit.com
+      secretName: passwords-allcareit-com-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: passwords-allcareit-website
+  namespace: allcareit
+spec:
+  selector:
+    app: passwords-allcareit-website
+  ports:
+  - port: 80
+    targetPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passwords-allcareit-website
+  namespace: allcareit
+  labels:
+    app: passwords-allcareit-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: passwords-allcareit-website
+  template:
+    metadata:
+      labels:
+        app: passwords-allcareit-website
+    spec:
+      containers:
+      - name: passwords-allcareit-website
+        image: us.gcr.io/opallabs/password-pusher:v0.1.1
+        imagePullPolicy: Always
+        env:
+        - name: HOST
+          value: "0.0.0.0"
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: ca-certificates
+          mountPath: /etc/ssl/certs
+      volumes:
+      - name: ca-certificates
+        hostPath:
+          path: /etc/ssl/certs
+      imagePullSecrets:
+      - name: regcred
