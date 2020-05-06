@@ -5,7 +5,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag    "application"
     %meta{:name => "description", :content => "PasswordPusher is an application to securely communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed."}
-    %link{ :rel => "shortcut icon",    :href => asset_path("favicon.ico"), :type => "image/x-icon" }
+    %link{ :rel => "shortcut icon",    :href => asset_path("favicon.png"), :type => "image/x-icon" }
     %link{ :rel => "apple-touch-icon", :href => asset_path("apple-touch-icon-iphone.png") }
     %link{ :rel => "apple-touch-icon", :sizes => "72x72",   :href => asset_path("apple-touch-icon-ipad.png") }
     %link{ :rel => "apple-touch-icon", :sizes => "114x114", :href => asset_path("apple-touch-icon-iphone4.png") }
@@ -35,7 +35,6 @@
       = raw ::Instana::Helpers.eum_test_snippet('_LNwQfrwSKqwTDqD3K9kGg')
   %body
     .content
-      = link_to image_tag("forkme.png", :style => "position: absolute; top: 0; right: 0; border: 0; z-index: 1;", :alt => "Fork me on Github" ), "https://github.com/pglombardo/PasswordPusher"
       = yield
 
     = javascript_include_tag "application"

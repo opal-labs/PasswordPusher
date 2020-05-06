@@ -45,11 +45,5 @@
         == or #{pluralize(@password.views_remaining, 'more view')} (whichever occurs first).
     - if @password.deletable_by_viewer
       %p{ :style => 'font-size: .85em;' }
-        = link_to "Nah. I've got it. Delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
+        = link_to "I have the password, please delete this secret link now.", password_path, :id => @password.url_token, :method => :delete, :data => { :confirm => 'This will expire this secret link and remove the password from the PasswordPusher database forever.  Are you sure?' }
 %div.footer_note
-  This
-  - if @password.expired
-    (unfortunately expired)
-  password link is brought to you by
-  = link_to "Password Pusher", "/"
-  and viewers like you.
