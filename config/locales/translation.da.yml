@@ -187,6 +187,7 @@ da:
       not_saved:
         one: 'En fejl medførte, at denne %{resource} ikke kunne gemmes:'
         other: "%{count} fejl medførte, at denne %{resource} ikke kunne gemmes:"
+      in:
     unavailable_session: "Session %{id} er ikke længere tilgængelig i hukommelsen.\nHvis
       du benytter en multi-proces server (som Unicorn eller Puma). \nDenne forespørgsels
       \ gemmes ikke %{id} i hukommelsen. Overvej at ændre antallet af processer /
@@ -387,3 +388,34 @@ da:
 
         '
       email: Email
+  apipie:
+    resources: Ressourcer
+    resource:
+    description:
+    no_docs_found:
+    no_docs_found_descr:
+    follow_instructions_html:
+    follow_instructions_href:
+    oops:
+    resource_not_found_html:
+    method_not_found_html:
+    goto_homepage_html:
+    goto_homepage_href:
+    required:
+    optional:
+    nil_allowed:
+    param_name:
+    params:
+    examples: Eksempler
+    metadata:
+    errors:
+    error_code:
+    error_description:
+    error_metadata:
+    supported_formats:
+    enable_javascript_html:
+    comments_powered_by_disqus:
+    api_documentation:
+    headers:
+    header_name:
+    code:

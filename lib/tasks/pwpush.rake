@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# A task that should be run periodically (daily/weekly) to run through all unexpired
+# A task that should be run periodically (daily/weekly) to iterate through all unexpired
 # pushes and run .validate! which will determine if a push has expired or not.
 #
 # Note: .validate! is also run on each attempt to view an unexpired secret URL so this task is
@@ -12,31 +12,54 @@ task daily_expiration: :environment do
   counter = 0
   expiration_count = 0
 
+  puts "--> Starting daily expiration on #{Time.now}"
+
   Password.where(expired: false).find_each do |push|
     counter += 1
-
     push.validate!
     if push.expired
-      puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} has expired."
       expiration_count += 1
-    else
-      puts "#{counter}: Push #{push.url_token} created on #{push.created_at.to_s(:long)} by user #{push.user_id} is still active."
     end
   end
 
-  puts "#{expiration_count} total pushes expired."
+  puts "  -> Finished validating #{counter} unexpired password pushes.  #{expiration_count} total pushes expired..."
 
-  puts ''
-  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
-  puts ''
+  if Settings.enable_file_pushes
+    counter = 0
+    expiration_count = 0
+    FilePush.where(expired: false).find_each do |push|
+      counter += 1
+      push.validate!
+      if push.expired
+        expiration_count += 1
+      end
+    end
+    puts "  -> Finished validating #{counter} unexpired File pushes.  #{expiration_count} total pushes expired..."
+  end
+  
+  if Settings.enable_url_pushes
+    counter = 0
+    expiration_count = 0
+    Url.where(expired: false).find_each do |push|
+      counter += 1
+      push.validate!
+      if push.expired
+        expiration_count += 1
+      end
+    end
+    puts "  -> Finished validating #{counter} unexpired URL pushes.  #{expiration_count} total pushes expired..."
+  end
+
+  puts "  -> Finished daily expiration on #{Time.now}"
 end
 
 # When a Password expires, the payload is deleted but the metadata record still exists.  This
 # includes information such as creation date, views, duration etc..  When the record
-# was created by an anonymous user, this data is no longer needed (and we don't want it).
+# was created by an anonymous user, this data is no longer needed and we delete it (we 
+# don't want it).
 #
-# If a user attempts to retrieve a secret link that doesn't exist, we still show the standard
-# "This secret link has expired" message.  This strategy provides two benefits:
+# If a user attempts to retrieve a secret link that doesn't exist anymore, we still show 
+# the standard "This secret link has expired" message.  This strategy provides two benefits:
 #
 # 1. It hides the fact that if a secret ever exists or not (more secure)
 # 2. It allows us to delete data that we don't want
@@ -52,22 +75,39 @@ end
 desc 'Delete expired and anonymous pushes.'
 task delete_expired_and_anonymous: :environment do
   counter = 0
+  
+  puts "--> Starting delete_expired_and_anonymous on #{Time.now}"
 
   Password.includes(:views)
           .where(expired: true)
           .where(user_id: nil)
           .find_each do |push|
     counter += 1
-    puts "#{counter}: Deleting expired and anonymous push #{push.url_token} created on " \
-         "#{push.created_at.to_s(:long)} with #{push.views.size} views."
     push.destroy
   end
+    
+  if Settings.enable_file_pushes
+    FilePush.includes(:views)
+            .where(expired: true)
+            .where(user_id: nil)
+            .find_each do |push|
+      counter += 1
+      push.destroy
+    end
+  end
 
-  puts "#{counter} total pushes deleted."
+  if Settings.enable_url_pushes
+    Url.includes(:views)
+            .where(expired: true)
+            .where(user_id: nil)
+            .find_each do |push|
+      counter += 1
+      push.destroy
+    end
+  end
 
-  puts ''
-  puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
-  puts ''
+  puts "  -> #{counter} total anonymous and expired pushes deleted."
+  puts "  -> Finished delete_expired_and_anonymous on #{Time.now}"
 end
 
 desc 'Generate robots.txt.'
@@ -83,4 +123,12 @@ task generate_robots_txt: :environment do
   puts ''
   puts 'All done.  Bye!  (っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )'
   puts ''
+end
+
+namespace :active_storage do
+  desc "Purges unattached Active Storage blobs. Run regularly."
+  task purge_unattached: :environment do
+    # TODO: When a worker is added, change this to purge_later
+    ActiveStorage::Blob.unattached.where("active_storage_blobs.created_at <= ?", 2.days.ago).find_each(&:purge)
+  end
 end

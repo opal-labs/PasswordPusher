@@ -3,13 +3,13 @@
 ![Password Pusher Front Page](https://pwpush.s3.eu-west-1.amazonaws.com/pwpush-horizontal-logo.png)
 
 __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
-    
+
 [![](https://badgen.net/twitter/follow/pwpush)](https://twitter.com/pwpush)
 ![](https://badgen.net/github/stars/pglombardo/PasswordPusher)
-![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)
+[![](https://badgen.net/uptime-robot/month/m789048867-17b5770ccd78208645662f1f)](https://stats.uptimerobot.com/6xJjNtPr93)
 [![](https://badgen.net/docker/pulls/pglombardo/pwpush-ephemeral)](https://hub.docker.com/repositories)
 
-[![Github CI](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby.yml/badge.svg)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby.yml)
+[![Github CI](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby-tests.yml/badge.svg)](https://github.com/pglombardo/PasswordPusher/actions/workflows/ruby-tests.yml)
 [![](https://badgen.net/circleci/github/pglombardo/PasswordPusher)](https://circleci.com/gh/pglombardo/PasswordPusher/tree/master)
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/pglombardo/pwpush-cli/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
 [![Semantic Versions](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--versions-e10079.svg)](https://github.com/pglombardo/pwpush-cli/releases)
@@ -19,37 +19,44 @@ __Simple & Secure Password Sharing with Auto-Expiration of Shared Items__
 
 ------
 
+Give your users the tools to be secure by default.
+
 Password Pusher is an opensource application to communicate passwords over the web. Links to passwords expire after a certain number of views and/or time has passed.
 
 Hosted at [pwpush.com](https://pwpush.com) but you can also easily run your own private instance with just a few steps.
 
 * __Easy-to-install:__ Host your own via Docker, a cloud service or just use [pwpush.com](https://pwpush.com)
 * __Opensource:__ No blackbox code.  Only trusted, tested and reviewed opensource code.
+* __Versatile:__ Push passwords, text, files or URLs that autoexpire and self delete.
 * __Audit logging:__ Track and control what you've shared and see who has viewed it.
-* __Encrypted storage:__ All sensitive data is stored encrypted and is deleted once expired.
+* __Encrypted storage:__ All sensitive data is stored encrypted and deleted entirely once expired.
 * __Host your own:__ Database backed or ephemeral, easily run your own instance isolated from the world.
 * __JSON API:__ Raw JSON API available for 3rd party tools or command line via `curl` or `wget`.
 * __Command line interface:__ Automate your password distribution with CLI tools or custom scripts.
-* __Internationalized:__ 10 language translations are bundled in.  Easily selectable via UI or URL
+* __Logins__: Invite your colleagues and track what is pushed and who retrieved it.
+* __Internationalized:__ 19 language translations are bundled in.  Easily selectable via UI or URL
 * __Unbranded delivery page:__ No logos, superfluous text or unrelated links to confuse end users.
 * __Customizable:__ Change text and default options via environment variables.
 * __Light & dark themes:__  Via CSS @media integration, the site theme follows your local preferences
+* __Rebrandable:__ Customize the site name, tagline and logo to fit your environment.
 * __10 Years Old:__ Password Pusher has securely delivered millions and millions of passwords in it's 10 year history.
 * __Honest Software:__  Opensource written and maintained by [me](https://github.com/pglombardo) with the help of some great contributors.  No organizations, corporations or evil agendas.
 
-Follow Password Pusher [on Twitter](https://twitter.com/pwpush), [Gettr](https://gettr.com/user/pwpush) or [on Facebook](https://www.facebook.com/pwpush) for the latest news, updates and changes.
+💌 --> Sign up for [the newsletter](https://buttondown.email/pwpush?tag=github) to get updates on big releases, security issues, new features, integrations, tips and more.
+
+Password Pusher is also on [on Twitter](https://twitter.com/pwpush), [Gettr](https://gettr.com/user/pwpush) and [on Facebook](https://www.facebook.com/pwpush)
 
 -----
 
-[![](./app/frontend/img/features/front-page-thumb.png)](./app/frontend/img/features/front-page-large.png)
-[![](./app/frontend/img/features/audit-log-thumb.png)](./app/frontend/img/features/audit-log-large.png)
-[![](./app/frontend/img/features/secret-url-languages-thumb.png)](./app/frontend/img/features/secret-url-languages-large.png)
-[![](./app/frontend/img/features/password-generator-thumb.png)](./app/frontend/img/features/password-generator-large.png)
-[![](./app/frontend/img/features/dark-theme-thumb.png)](./app/frontend/img/features/dark-theme.gif)
-[![](./app/frontend/img/features/preliminary-step-thumb.png)](./app/frontend/img/features/preliminary-step.gif)
+[![](./app/assets/images/features/front-page-thumb.png)](./app/assets/images/features/front-page-large.png)
+[![](./app/assets/images/features/audit-log-thumb.png)](./app/assets/images/features/audit-log-large.png)
+[![](./app/assets/images/features/secret-url-languages-thumb.png)](./app/assets/images/features/secret-url-languages-large.png)
+[![](./app/assets/images/features/password-generator-thumb.png)](./app/assets/images/features/password-generator-large.png)
+[![](./app/assets/images/features/dark-theme-thumb.png)](./app/assets/images/features/dark-theme.gif)
+[![](./app/assets/images/features/preliminary-step-thumb.png)](./app/assets/images/features/preliminary-step.gif)
 
 
-# Quickstart
+# ⚡️ Quickstart
 
 → Go to [pwpush.com](https://pwpush.com) and try it out.
 
@@ -96,11 +103,11 @@ _Note: The `latest` Docker container tag builds nightly off of the latest code c
 
 **➜ One-liner Password Pusher with a Postgres Database**
 
-    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-postgres/docker-compose.yaml && docker compose up -d
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-postgres/docker-compose.yml && docker compose up -d
 
 **➜ One-liner Password Pusher with a MariaDB (MySQL) Database**
 
-    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-mysql/docker-compose.yaml && docker compose up -d
+    curl -s -o docker-compose.yml https://raw.githubusercontent.com/pglombardo/PasswordPusher/master/containers/docker/pwpush-mysql/docker-compose.yml && docker compose up -d
 
 ## On Kubernetes
 
@@ -113,17 +120,17 @@ _There used to be a 3rd party blog post with instructions but it's been deleted.
 
 See [issue #277](https://github.com/pglombardo/PasswordPusher/issues/277)
 
-## On OpenShift
-
-See our [OpenShift documentation](https://github.com/pglombardo/PasswordPusher/tree/master/containers/docker#pwpush-openshift).
-
 ## On Heroku
 
 One click deploy to [Heroku Cloud](https://www.heroku.com) without having to set up servers.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pglombardo/PasswordPusher)
 
-_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  As is monthly cost: $0._
+_This option will deploy a production Password Pusher instance backed by a postgres database to Heroku.  Heroku used to offer free dynos but that is [no longer the case](https://blog.heroku.com/next-chapter) from November 28, 2022.  Hosting charges will be incurred._
+
+## With Nginx
+
+See the prebuilt [Docker Compose example here](https://github.com/pglombardo/PasswordPusher/tree/master/containers/examples/pwpush-and-nginx).
 
 ## From Source
 
@@ -133,6 +140,7 @@ Make sure you have git and Ruby installed and then:
 git clone git@github.com:pglombardo/PasswordPusher.git
 cd PasswordPusher
 gem install bundler
+bundle config set with 'sqlite' # Or 'postgres' or 'mysql'
 bundle install --without development production test --deployment
 bundle exec rake assets:precompile
 RAILS_ENV=private ./bin/rake db:setup
@@ -141,15 +149,17 @@ RAILS_ENV=private ./bin/rake db:setup
 
 Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
-# 3rd Party Tools
+# 🔨 3rd Party Tools
 
 ## Command Line Utilities
 
+* The almost official [pwpush-cli](https://github.com/pglombardo/pwpush-cli) (in pre-beta): CLI for Password Pusher with authentication support
+
+* [thekamilpro/kppwpush](https://github.com/thekamilpro/kppwpush): A PowerShell Module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/KpPwpush/0.0.1).  See the livestream of it's creation on [The Kamil Pro's channel](https://www.youtube.com/watch?v=f8_PZOx_KBY&feature=youtu.be).
+
 * [pgarm/pwposh](https://github.com/pgarm/pwposh): a PowerShell module available in the [PowerShell Gallery](https://www.powershellgallery.com/packages/PwPoSh/)
 
-*  [kprocyszyn/Get-PasswordLink.ps1](https://github.com/kprocyszyn/tools/blob/master/Get-PasswordLink/Get-PasswordLink.ps1): a PowerShell based CLI
-
-*  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI 
+*  [lnfnunes/pwpush-cli](https://github.com/lnfnunes/pwpush-cli): a Node.js based CLI
 
 * [abkierstein/pwpush](https://github.com/abkierstein/pwpush): a Python based CLI
 
@@ -169,13 +179,16 @@ Then view the site @ [http://localhost:5100/](http://localhost:5100/).
 
 * [Alfred Workflow](http://www.packal.org/workflow/passwordpusher) for Mac users
 
-# The Password Pusher API
+_See also the [Tools Page on pwpush.com](https://pwpush.com/en/pages/tools)._
 
-* [JSON API](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
+# 📡 The Password Pusher API
 
-# Internationalization
+* [JSON API Documentation](https://pwpush.com/api)
+* [Walkthrough & Examples](https://github.com/pglombardo/PasswordPusher/wiki/Password-API)
 
-Password Pusher is currently available in **13 languages** with more languages being added often as volunteers apply.
+# 🇮🇹 Internationalization
+
+Password Pusher is currently available in **18 languages** with more languages being added often as volunteers apply.
 
 From within the application, the language is selectable from a language menu.  Out of the box and before any language menu selection is done, the default language for the application is English.
 
@@ -187,6 +200,16 @@ The default language can be changed by setting an environment variable with the 
 
 For more details, a list of supported language codes and further explanation, see the bottom of this [configuration file](https://github.com/pglombardo/PasswordPusher/blob/master/config/settings.yml).
 
+# 🛟 Help Out
+
+[pwpush.com](https://pwpush.com) is hosted on Digital Ocean and is happily paid out of pocket by myself for more than 10 years.
+
+__But you could help out greatly__ by signing up to Digital Ocean with [this link](https://m.do.co/c/f4ea6ef24c13) (and get $200 credit).  In return, Password Pusher gets a helpful hosting credit.
+
+**tldr;** Sign up to Digital Ocean [with this link](https://m.do.co/c/f4ea6ef24c13), **get a $200 credit for free** and help Password Pusher out.
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=f4ea6ef24c13&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
 # 📼 Credits
 
 ## Translators
@@ -195,37 +218,23 @@ Thanks to our great translators!
 
 If you would like to volunteer and assist in translating, see [this page](https://pwpush.com/en/pages/translate).
 
-* Catalan
-  * [Oyale](https://github.com/oyale)
-
-* Danish
-  * Finn Skaaning
-
-* French
-  * [Thibaut](https://github.com/tibo59)
-
-* German
-  * Thomas Wölk: [Github](https://github.com/confluencepoint/) | [Twitter](https://twitter.com/confluencepoint)
-  * Martin Otto
-
-* Norwegian
-  * Robin Jørgensen
-
-* Polish
-  * [Łukasz](https://github.com/drpt)
-
-* Portuguese
-  * [Jair Henrique](https://github.com/jairhenrique/)
-  * [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)
-  * [Ivan Freitas](https://github.com/IvanMFreitas)
-  * Sara Faria
-
-* Spanish
-  * [Oyale](https://github.com/oyale)
-
-* Swedish
-  * johan323
-  * Fredrik Arvas
+| Name   | Language  | |
+|---|---|---|
+| [Oyale](https://github.com/oyale) | [Catalan](https://pwpush.com/ca) | |
+| Finn Skaaning  |  [Danish](https://pwpush.com/da/p/ny) | |
+| [Mihail Tchetchelnitski](https://github.com/mtchetch)  | [Finnish](https://pwpush.com/fi/p/uusi)  | |
+| [Thibaut](https://github.com/tibo59) | [French](https://pwpush.com/fr/p/Nouveau) | |
+| Thomas Wölk | [German](https://pwpush.com/de/p/neu) | [Github](https://github.com/confluencepoint/), [Twitter](https://twitter.com/confluencepoint) |
+| Martin Otto |[German](https://pwpush.com/de/p/neu) | |
+| Robin Jørgensen |[Norwegian](https://pwpush.com/no/p/ny) | |
+| [Łukasz](https://github.com/drpt)|[Polish](https://pwpush.com/pl/p/nowy) | |
+| [Jair Henrique](https://github.com/jairhenrique/) | [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| [Fabrício Rodrigues](https://www.linkedin.com/in/ifabriciorodrigues/)| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| [Ivan Freitas](https://github.com/IvanMFreitas)| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| Sara Faria| [Portuguese](https://pwpush.com/pt-br/p/novo) | |
+| [Oyale](https://github.com/oyale) |[Spanish](https://pwpush.com/pt-br/p/novo) | |
+| johan323 |[Swedish](https://pwpush.com/sv/p/ny) | |
+| Fredrik Arvas|[Swedish](https://pwpush.com/sv/p/ny) | |
 
 Also thanks to [translation.io](https://translation.io) for their great service in managing translations.  It's also generously free for opensource projects.
 
@@ -236,6 +245,8 @@ Thanks to:
 * [@fiskhest](https://github.com/fiskhest) the [Kubernetes installation instructions and manifests](https://github.com/pglombardo/PasswordPusher/tree/master/containers/kubernetes).
 
 * [@sfarosu](https://github.com/sfarosu) for [contributing](https://github.com/pglombardo/PasswordPusher/pull/82) the Docker, Kubernetes & OpenShift container support.
+
+* [sirux88](https://github.com/sirux88) for cleaning up the Docker files and adding multistage builds.
 
 ## Other
 
@@ -248,3 +259,22 @@ Thanks to:
 * [JarvisAndPi](http://www.reddit.com/user/JarvisAndPi) for the favicon design
 
 ...and many more.  See the [Contributors page](https://github.com/pglombardo/PasswordPusher/graphs/contributors) for more details.
+
+# 🛡 License
+
+[![License](https://img.shields.io/github/license/pglombardo/PasswordPusher)](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE)
+
+This project is licensed under the terms of the `GNU General Public License v3.0` license. See [LICENSE](https://github.com/pglombardo/PasswordPusher/blob/main/LICENSE) for more details.
+
+# 📃 Citation
+
+```bibtex
+@misc{PasswordPusher,
+  author = {Peter Giacomo Lombardo},
+  title = {An application to securely communicate passwords over the web. Passwords automatically expire after a certain number of views and/or time has passed.},
+  year = {2022},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/pglombardo/PasswordPusher}}
+}
+```

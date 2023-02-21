@@ -24,7 +24,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = Settings.mail.mailer_sender
+  config.mailer_sender = Settings.mail.mailer_sender if Settings.mail
+
+  # https://github.com/heartcombo/devise/issues/5439
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -308,4 +311,9 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  # For Hotwire Turbo integration
+  # https://github.com/heartcombo/devise/wiki/How-To:-Upgrade-to-Devise-4.9.0-[Hotwire-Turbo-integration]
+  config.responder.error_status = :unprocessable_entity
+  config.responder.redirect_status = :see_other
 end

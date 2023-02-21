@@ -50,24 +50,23 @@ class CommandsController < ApplicationController
       return
     end
 
-    days ||= EXPIRE_AFTER_DAYS_DEFAULT
-    views ||= EXPIRE_AFTER_VIEWS_DEFAULT
+    days ||= Settings.pw.expire_after_days_default
+    views ||= Settings.pw.expire_after_views_default
+    retrieval = (Settings.pw.enable_retrieval_step && Settings.pw.retrieval_step_default) ? '/r' : ''
 
     @password = Password.new
     @password.expire_after_days = days
     @password.expire_after_views = views
-    @password.deletable_by_viewer = DELETABLE_PASSWORDS_ENABLED
+    @password.deletable_by_viewer = Settings.pw.enable_deletable_pushes
 
-    # Encrypt the passwords
-    @key = EzCrypto::Key.with_password CRYPT_KEY, CRYPT_SALT
-    @password.payload = @key.encrypt64(secret)
+    @password.payload = secret
 
     @password.url_token = SecureRandom.urlsafe_base64(rand(8..14)).downcase
     @password.validate!
 
     if @password.save
       message = "Pushed password with #{days} days and #{views} views expiration: " +
-                "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}"
+                "#{request.env["rack.url_scheme"]}://#{request.env['HTTP_HOST']}/p/#{@password.url_token}#{retrieval}"
       render plain: message, layout: false
     else
       render plain: @password.errors, layout: false
